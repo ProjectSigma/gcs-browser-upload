@@ -37,7 +37,6 @@
     "localStorage": "^1.0.4",
     "mkdirp": "^1.0.4",
     "mocha": "^8.2.1",
-    "pify": "^5.0.0",
     "random-string": "^0.2.0",
     "sinon": "^9.2.2",
     "sinon-chai": "^3.5.0",
