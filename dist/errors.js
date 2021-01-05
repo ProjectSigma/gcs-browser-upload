@@ -1,40 +1,36 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.UploadAlreadyFinishedError = exports.InvalidChunkSizeError = exports.UploadIncompleteError = exports.MissingOptionsError = exports.UnknownResponseError = exports.UploadFailedError = exports.UrlNotFoundError = exports.FileAlreadyUploadedError = exports.DifferentChunkError = undefined;
+exports.UploadAlreadyFinishedError = exports.InvalidChunkSizeError = exports.UploadIncompleteError = exports.MissingOptionsError = exports.UnknownResponseError = exports.UploadFailedError = exports.UrlNotFoundError = exports.FileAlreadyUploadedError = exports.DifferentChunkError = void 0;
 
-var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+var _es6Error = _interopRequireDefault(require("es6-error"));
 
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0, _getPrototypeOf2["default"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0, _getPrototypeOf2["default"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0, _possibleConstructorReturn2["default"])(this, result); }; }
 
-var _inherits2 = require('babel-runtime/helpers/inherits');
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-var _inherits3 = _interopRequireDefault(_inherits2);
+var DifferentChunkError = /*#__PURE__*/function (_ExtendableError) {
+  (0, _inherits2["default"])(DifferentChunkError, _ExtendableError);
 
-var _es6Error = require('es6-error');
-
-var _es6Error2 = _interopRequireDefault(_es6Error);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var DifferentChunkError = exports.DifferentChunkError = function (_ExtendableError) {
-  (0, _inherits3.default)(DifferentChunkError, _ExtendableError);
+  var _super = _createSuper(DifferentChunkError);
 
   function DifferentChunkError(chunkIndex, originalChecksum, newChecksum) {
-    (0, _classCallCheck3.default)(this, DifferentChunkError);
+    var _this;
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, (DifferentChunkError.__proto__ || (0, _getPrototypeOf2.default)(DifferentChunkError)).call(this, 'Chunk at index \'' + chunkIndex + '\' is different to original'));
-
+    (0, _classCallCheck2["default"])(this, DifferentChunkError);
+    _this = _super.call(this, "Chunk at index '".concat(chunkIndex, "' is different to original"));
     _this.chunkIndex = chunkIndex;
     _this.originalChecksum = originalChecksum;
     _this.newChecksum = newChecksum;
@@ -42,96 +38,130 @@ var DifferentChunkError = exports.DifferentChunkError = function (_ExtendableErr
   }
 
   return DifferentChunkError;
-}(_es6Error2.default);
+}(_es6Error["default"]);
 
-var FileAlreadyUploadedError = exports.FileAlreadyUploadedError = function (_ExtendableError2) {
-  (0, _inherits3.default)(FileAlreadyUploadedError, _ExtendableError2);
+exports.DifferentChunkError = DifferentChunkError;
+
+var FileAlreadyUploadedError = /*#__PURE__*/function (_ExtendableError2) {
+  (0, _inherits2["default"])(FileAlreadyUploadedError, _ExtendableError2);
+
+  var _super2 = _createSuper(FileAlreadyUploadedError);
 
   function FileAlreadyUploadedError(id, url) {
-    (0, _classCallCheck3.default)(this, FileAlreadyUploadedError);
-    return (0, _possibleConstructorReturn3.default)(this, (FileAlreadyUploadedError.__proto__ || (0, _getPrototypeOf2.default)(FileAlreadyUploadedError)).call(this, 'File \'' + id + '\' has already been uploaded to unique url \'' + url + '\''));
+    (0, _classCallCheck2["default"])(this, FileAlreadyUploadedError);
+    return _super2.call(this, "File '".concat(id, "' has already been uploaded to unique url '").concat(url, "'"));
   }
 
   return FileAlreadyUploadedError;
-}(_es6Error2.default);
+}(_es6Error["default"]);
 
-var UrlNotFoundError = exports.UrlNotFoundError = function (_ExtendableError3) {
-  (0, _inherits3.default)(UrlNotFoundError, _ExtendableError3);
+exports.FileAlreadyUploadedError = FileAlreadyUploadedError;
+
+var UrlNotFoundError = /*#__PURE__*/function (_ExtendableError3) {
+  (0, _inherits2["default"])(UrlNotFoundError, _ExtendableError3);
+
+  var _super3 = _createSuper(UrlNotFoundError);
 
   function UrlNotFoundError(url) {
-    (0, _classCallCheck3.default)(this, UrlNotFoundError);
-    return (0, _possibleConstructorReturn3.default)(this, (UrlNotFoundError.__proto__ || (0, _getPrototypeOf2.default)(UrlNotFoundError)).call(this, 'Upload URL \'' + url + '\' has either expired or is invalid'));
+    (0, _classCallCheck2["default"])(this, UrlNotFoundError);
+    return _super3.call(this, "Upload URL '".concat(url, "' has either expired or is invalid"));
   }
 
   return UrlNotFoundError;
-}(_es6Error2.default);
+}(_es6Error["default"]);
 
-var UploadFailedError = exports.UploadFailedError = function (_ExtendableError4) {
-  (0, _inherits3.default)(UploadFailedError, _ExtendableError4);
+exports.UrlNotFoundError = UrlNotFoundError;
+
+var UploadFailedError = /*#__PURE__*/function (_ExtendableError4) {
+  (0, _inherits2["default"])(UploadFailedError, _ExtendableError4);
+
+  var _super4 = _createSuper(UploadFailedError);
 
   function UploadFailedError(status) {
-    (0, _classCallCheck3.default)(this, UploadFailedError);
-    return (0, _possibleConstructorReturn3.default)(this, (UploadFailedError.__proto__ || (0, _getPrototypeOf2.default)(UploadFailedError)).call(this, 'HTTP status ' + status + ' received from GCS, consider retrying'));
+    (0, _classCallCheck2["default"])(this, UploadFailedError);
+    return _super4.call(this, "HTTP status ".concat(status, " received from GCS, consider retrying"));
   }
 
   return UploadFailedError;
-}(_es6Error2.default);
+}(_es6Error["default"]);
 
-var UnknownResponseError = exports.UnknownResponseError = function (_ExtendableError5) {
-  (0, _inherits3.default)(UnknownResponseError, _ExtendableError5);
+exports.UploadFailedError = UploadFailedError;
+
+var UnknownResponseError = /*#__PURE__*/function (_ExtendableError5) {
+  (0, _inherits2["default"])(UnknownResponseError, _ExtendableError5);
+
+  var _super5 = _createSuper(UnknownResponseError);
 
   function UnknownResponseError(res) {
-    (0, _classCallCheck3.default)(this, UnknownResponseError);
+    var _this2;
 
-    var _this5 = (0, _possibleConstructorReturn3.default)(this, (UnknownResponseError.__proto__ || (0, _getPrototypeOf2.default)(UnknownResponseError)).call(this, 'Unknown response received from GCS'));
-
-    _this5.res = res;
-    return _this5;
+    (0, _classCallCheck2["default"])(this, UnknownResponseError);
+    _this2 = _super5.call(this, 'Unknown response received from GCS');
+    _this2.res = res;
+    return _this2;
   }
 
   return UnknownResponseError;
-}(_es6Error2.default);
+}(_es6Error["default"]);
 
-var MissingOptionsError = exports.MissingOptionsError = function (_ExtendableError6) {
-  (0, _inherits3.default)(MissingOptionsError, _ExtendableError6);
+exports.UnknownResponseError = UnknownResponseError;
+
+var MissingOptionsError = /*#__PURE__*/function (_ExtendableError6) {
+  (0, _inherits2["default"])(MissingOptionsError, _ExtendableError6);
+
+  var _super6 = _createSuper(MissingOptionsError);
 
   function MissingOptionsError() {
-    (0, _classCallCheck3.default)(this, MissingOptionsError);
-    return (0, _possibleConstructorReturn3.default)(this, (MissingOptionsError.__proto__ || (0, _getPrototypeOf2.default)(MissingOptionsError)).call(this, 'Missing options for Upload'));
+    (0, _classCallCheck2["default"])(this, MissingOptionsError);
+    return _super6.call(this, 'Missing options for Upload');
   }
 
   return MissingOptionsError;
-}(_es6Error2.default);
+}(_es6Error["default"]);
 
-var UploadIncompleteError = exports.UploadIncompleteError = function (_ExtendableError7) {
-  (0, _inherits3.default)(UploadIncompleteError, _ExtendableError7);
+exports.MissingOptionsError = MissingOptionsError;
+
+var UploadIncompleteError = /*#__PURE__*/function (_ExtendableError7) {
+  (0, _inherits2["default"])(UploadIncompleteError, _ExtendableError7);
+
+  var _super7 = _createSuper(UploadIncompleteError);
 
   function UploadIncompleteError() {
-    (0, _classCallCheck3.default)(this, UploadIncompleteError);
-    return (0, _possibleConstructorReturn3.default)(this, (UploadIncompleteError.__proto__ || (0, _getPrototypeOf2.default)(UploadIncompleteError)).call(this, 'Upload is not complete'));
+    (0, _classCallCheck2["default"])(this, UploadIncompleteError);
+    return _super7.call(this, 'Upload is not complete');
   }
 
   return UploadIncompleteError;
-}(_es6Error2.default);
+}(_es6Error["default"]);
 
-var InvalidChunkSizeError = exports.InvalidChunkSizeError = function (_ExtendableError8) {
-  (0, _inherits3.default)(InvalidChunkSizeError, _ExtendableError8);
+exports.UploadIncompleteError = UploadIncompleteError;
+
+var InvalidChunkSizeError = /*#__PURE__*/function (_ExtendableError8) {
+  (0, _inherits2["default"])(InvalidChunkSizeError, _ExtendableError8);
+
+  var _super8 = _createSuper(InvalidChunkSizeError);
 
   function InvalidChunkSizeError(chunkSize) {
-    (0, _classCallCheck3.default)(this, InvalidChunkSizeError);
-    return (0, _possibleConstructorReturn3.default)(this, (InvalidChunkSizeError.__proto__ || (0, _getPrototypeOf2.default)(InvalidChunkSizeError)).call(this, 'Invalid chunk size ' + chunkSize + ', must be a multiple of 262144'));
+    (0, _classCallCheck2["default"])(this, InvalidChunkSizeError);
+    return _super8.call(this, "Invalid chunk size ".concat(chunkSize, ", must be a multiple of 262144"));
   }
 
   return InvalidChunkSizeError;
-}(_es6Error2.default);
+}(_es6Error["default"]);
 
-var UploadAlreadyFinishedError = exports.UploadAlreadyFinishedError = function (_ExtendableError9) {
-  (0, _inherits3.default)(UploadAlreadyFinishedError, _ExtendableError9);
+exports.InvalidChunkSizeError = InvalidChunkSizeError;
+
+var UploadAlreadyFinishedError = /*#__PURE__*/function (_ExtendableError9) {
+  (0, _inherits2["default"])(UploadAlreadyFinishedError, _ExtendableError9);
+
+  var _super9 = _createSuper(UploadAlreadyFinishedError);
 
   function UploadAlreadyFinishedError() {
-    (0, _classCallCheck3.default)(this, UploadAlreadyFinishedError);
-    return (0, _possibleConstructorReturn3.default)(this, (UploadAlreadyFinishedError.__proto__ || (0, _getPrototypeOf2.default)(UploadAlreadyFinishedError)).call(this, 'Upload instance has already finished'));
+    (0, _classCallCheck2["default"])(this, UploadAlreadyFinishedError);
+    return _super9.call(this, 'Upload instance has already finished');
   }
 
   return UploadAlreadyFinishedError;
-}(_es6Error2.default);
+}(_es6Error["default"]);
+
+exports.UploadAlreadyFinishedError = UploadAlreadyFinishedError;

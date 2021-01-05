@@ -1,39 +1,32 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = void 0;
 
-var _stringify = require('babel-runtime/core-js/json/stringify');
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _stringify2 = _interopRequireDefault(_stringify);
-
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = require('babel-runtime/helpers/createClass');
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
 var STORAGE_KEY = '__gcsBrowserUpload';
 
-var FileMeta = function () {
+var FileMeta = /*#__PURE__*/function () {
   function FileMeta(id, fileSize, chunkSize, storage) {
-    (0, _classCallCheck3.default)(this, FileMeta);
-
+    (0, _classCallCheck2["default"])(this, FileMeta);
     this.id = id;
     this.fileSize = fileSize;
     this.chunkSize = chunkSize;
     this.storage = storage;
   }
 
-  (0, _createClass3.default)(FileMeta, [{
-    key: 'getMeta',
+  (0, _createClass2["default"])(FileMeta, [{
+    key: "getMeta",
     value: function getMeta() {
-      var meta = this.storage.getItem(STORAGE_KEY + '.' + this.id);
+      var meta = this.storage.getItem("".concat(STORAGE_KEY, ".").concat(this.id));
+
       if (meta) {
         return JSON.parse(meta);
       } else {
@@ -46,33 +39,34 @@ var FileMeta = function () {
       }
     }
   }, {
-    key: 'setMeta',
+    key: "setMeta",
     value: function setMeta(meta) {
-      var key = STORAGE_KEY + '.' + this.id;
+      var key = "".concat(STORAGE_KEY, ".").concat(this.id);
+
       if (meta) {
-        this.storage.setItem(key, (0, _stringify2.default)(meta));
+        this.storage.setItem(key, JSON.stringify(meta));
       } else {
         this.storage.removeItem(key);
       }
     }
   }, {
-    key: 'isResumable',
+    key: "isResumable",
     value: function isResumable() {
       var meta = this.getMeta();
       return meta.started && this.chunkSize === meta.chunkSize;
     }
   }, {
-    key: 'getResumeIndex',
+    key: "getResumeIndex",
     value: function getResumeIndex() {
       return this.getMeta().checksums.length;
     }
   }, {
-    key: 'getFileSize',
+    key: "getFileSize",
     value: function getFileSize() {
       return this.getMeta().fileSize;
     }
   }, {
-    key: 'addChecksum',
+    key: "addChecksum",
     value: function addChecksum(index, checksum) {
       var meta = this.getMeta();
       meta.checksums[index] = checksum;
@@ -80,12 +74,12 @@ var FileMeta = function () {
       this.setMeta(meta);
     }
   }, {
-    key: 'getChecksum',
+    key: "getChecksum",
     value: function getChecksum(index) {
       return this.getMeta().checksums[index];
     }
   }, {
-    key: 'reset',
+    key: "reset",
     value: function reset() {
       this.setMeta(null);
     }
@@ -93,4 +87,4 @@ var FileMeta = function () {
   return FileMeta;
 }();
 
-exports.default = FileMeta;
+exports["default"] = FileMeta;

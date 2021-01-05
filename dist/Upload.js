@@ -1,99 +1,45 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = void 0;
 
-var _regenerator = require('babel-runtime/regenerator');
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
-var _regenerator2 = _interopRequireDefault(_regenerator);
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
-var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _extends2 = require('babel-runtime/helpers/extends');
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
-var _extends3 = _interopRequireDefault(_extends2);
+var _axios = require("axios");
 
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+var _FileMeta = _interopRequireDefault(require("./FileMeta"));
 
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+var _FileProcessor = _interopRequireDefault(require("./FileProcessor"));
 
-var _createClass2 = require('babel-runtime/helpers/createClass');
+var _debug = _interopRequireDefault(require("./debug"));
 
-var _createClass3 = _interopRequireDefault(_createClass2);
+var errors = _interopRequireWildcard(require("./errors"));
 
-var safePut = function () {
-  var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6() {
-    var _args6 = arguments;
-    return _regenerator2.default.wrap(function _callee6$(_context6) {
-      while (1) {
-        switch (_context6.prev = _context6.next) {
-          case 0:
-            _context6.prev = 0;
-            _context6.next = 3;
-            return _axios.put.apply(null, _args6);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-          case 3:
-            return _context6.abrupt('return', _context6.sent);
-
-          case 6:
-            _context6.prev = 6;
-            _context6.t0 = _context6['catch'](0);
-
-            if (!(_context6.t0 instanceof Error)) {
-              _context6.next = 12;
-              break;
-            }
-
-            throw _context6.t0;
-
-          case 12:
-            return _context6.abrupt('return', _context6.t0);
-
-          case 13:
-          case 'end':
-            return _context6.stop();
-        }
-      }
-    }, _callee6, this, [[0, 6]]);
-  }));
-
-  return function safePut() {
-    return _ref6.apply(this, arguments);
-  };
-}();
-
-var _axios = require('axios');
-
-var _FileMeta = require('./FileMeta');
-
-var _FileMeta2 = _interopRequireDefault(_FileMeta);
-
-var _FileProcessor = require('./FileProcessor');
-
-var _FileProcessor2 = _interopRequireDefault(_FileProcessor);
-
-var _debug = require('./debug');
-
-var _debug2 = _interopRequireDefault(_debug);
-
-var _errors = require('./errors');
-
-var errors = _interopRequireWildcard(_errors);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 var MIN_CHUNK_SIZE = 262144;
 
-var Upload = function () {
+var Upload = /*#__PURE__*/function () {
   function Upload(args, allowSmallChunks) {
-    (0, _classCallCheck3.default)(this, Upload);
+    (0, _classCallCheck2["default"])(this, Upload);
 
-    var opts = (0, _extends3.default)({
+    var opts = _objectSpread({
       chunkSize: MIN_CHUNK_SIZE,
       storage: window.localStorage,
       contentType: 'text/plain',
@@ -104,41 +50,38 @@ var Upload = function () {
     }, args);
 
     if ((opts.chunkSize % MIN_CHUNK_SIZE !== 0 || opts.chunkSize === 0) && !allowSmallChunks) {
-      throw new _errors.InvalidChunkSizeError(opts.chunkSize);
+      throw new errors.InvalidChunkSizeError(opts.chunkSize);
     }
 
     if (!opts.id || !opts.url || !opts.file) {
-      throw new _errors.MissingOptionsError();
+      throw new errors.MissingOptionsError();
     }
 
-    (0, _debug2.default)('Creating new upload instance:');
-    (0, _debug2.default)(' - Url: ' + opts.url);
-    (0, _debug2.default)(' - Id: ' + opts.id);
-    (0, _debug2.default)(' - File size: ' + opts.file.size);
-    (0, _debug2.default)(' - Chunk size: ' + opts.chunkSize);
-
+    (0, _debug["default"])('Creating new upload instance:');
+    (0, _debug["default"])(" - Url: ".concat(opts.url));
+    (0, _debug["default"])(" - Id: ".concat(opts.id));
+    (0, _debug["default"])(" - File size: ".concat(opts.file.size));
+    (0, _debug["default"])(" - Chunk size: ".concat(opts.chunkSize));
     this.opts = opts;
-    this.meta = new _FileMeta2.default(opts.id, opts.file.size, opts.chunkSize, opts.storage);
-    this.processor = new _FileProcessor2.default(opts.file, opts.chunkSize);
+    this.meta = new _FileMeta["default"](opts.id, opts.file.size, opts.chunkSize, opts.storage);
+    this.processor = new _FileProcessor["default"](opts.file, opts.chunkSize);
   }
 
-  (0, _createClass3.default)(Upload, [{
-    key: 'start',
+  (0, _createClass2["default"])(Upload, [{
+    key: "start",
     value: function () {
-      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5() {
-        var _this = this;
-
+      var _start = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5() {
         var meta, processor, opts, finished, resumeUpload, uploadChunk, validateChunk, getRemoteResumeIndex;
-        return _regenerator2.default.wrap(function _callee5$(_context5) {
+        return _regenerator["default"].wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 meta = this.meta, processor = this.processor, opts = this.opts, finished = this.finished;
 
-                resumeUpload = function () {
-                  var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+                resumeUpload = /*#__PURE__*/function () {
+                  var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee() {
                     var localResumeIndex, remoteResumeIndex, resumeIndex;
-                    return _regenerator2.default.wrap(function _callee$(_context) {
+                    return _regenerator["default"].wrap(function _callee$(_context) {
                       while (1) {
                         switch (_context.prev = _context.next) {
                           case 0:
@@ -149,11 +92,9 @@ var Upload = function () {
                           case 3:
                             remoteResumeIndex = _context.sent;
                             resumeIndex = Math.min(localResumeIndex, remoteResumeIndex);
-
-                            (0, _debug2.default)('Validating chunks up to index ' + resumeIndex);
-                            (0, _debug2.default)(' - Remote index: ' + remoteResumeIndex);
-                            (0, _debug2.default)(' - Local index: ' + localResumeIndex);
-
+                            (0, _debug["default"])("Validating chunks up to index ".concat(resumeIndex));
+                            (0, _debug["default"])(" - Remote index: ".concat(remoteResumeIndex));
+                            (0, _debug["default"])(" - Local index: ".concat(localResumeIndex));
                             _context.prev = 8;
                             _context.next = 11;
                             return processor.run(validateChunk, 0, resumeIndex);
@@ -164,42 +105,39 @@ var Upload = function () {
 
                           case 13:
                             _context.prev = 13;
-                            _context.t0 = _context['catch'](8);
-
-                            (0, _debug2.default)('Validation failed, starting from scratch');
-                            (0, _debug2.default)(' - Failed chunk index: ' + _context.t0.chunkIndex);
-                            (0, _debug2.default)(' - Old checksum: ' + _context.t0.originalChecksum);
-                            (0, _debug2.default)(' - New checksum: ' + _context.t0.newChecksum);
-
+                            _context.t0 = _context["catch"](8);
+                            (0, _debug["default"])('Validation failed, starting from scratch');
+                            (0, _debug["default"])(" - Failed chunk index: ".concat(_context.t0.chunkIndex));
+                            (0, _debug["default"])(" - Old checksum: ".concat(_context.t0.originalChecksum));
+                            (0, _debug["default"])(" - New checksum: ".concat(_context.t0.newChecksum));
                             _context.next = 21;
                             return processor.run(uploadChunk);
 
                           case 21:
-                            return _context.abrupt('return');
+                            return _context.abrupt("return");
 
                           case 22:
-
-                            (0, _debug2.default)('Validation passed, resuming upload');
+                            (0, _debug["default"])('Validation passed, resuming upload');
                             _context.next = 25;
                             return processor.run(uploadChunk, resumeIndex);
 
                           case 25:
-                          case 'end':
+                          case "end":
                             return _context.stop();
                         }
                       }
-                    }, _callee, _this, [[8, 13]]);
+                    }, _callee, null, [[8, 13]]);
                   }));
 
                   return function resumeUpload() {
-                    return _ref2.apply(this, arguments);
+                    return _ref.apply(this, arguments);
                   };
                 }();
 
-                uploadChunk = function () {
-                  var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(checksum, index, chunk) {
+                uploadChunk = /*#__PURE__*/function () {
+                  var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(checksum, index, chunk) {
                     var total, start, end, headers, res;
-                    return _regenerator2.default.wrap(function _callee2$(_context2) {
+                    return _regenerator["default"].wrap(function _callee2$(_context2) {
                       while (1) {
                         switch (_context2.prev = _context2.next) {
                           case 0:
@@ -208,25 +146,22 @@ var Upload = function () {
                             end = index * opts.chunkSize + chunk.byteLength - 1;
                             headers = {
                               'Content-Type': opts.contentType,
-                              'Content-Range': 'bytes ' + start + '-' + end + '/' + total
+                              'Content-Range': "bytes ".concat(start, "-").concat(end, "/").concat(total)
                             };
-
-
-                            (0, _debug2.default)('Uploading chunk ' + index + ':');
-                            (0, _debug2.default)(' - Chunk length: ' + chunk.byteLength);
-                            (0, _debug2.default)(' - Start: ' + start);
-                            (0, _debug2.default)(' - End: ' + end);
-
+                            (0, _debug["default"])("Uploading chunk ".concat(index, ":"));
+                            (0, _debug["default"])(" - Chunk length: ".concat(chunk.byteLength));
+                            (0, _debug["default"])(" - Start: ".concat(start));
+                            (0, _debug["default"])(" - End: ".concat(end));
                             _context2.next = 10;
-                            return safePut(opts.url, chunk, { headers: headers });
+                            return safePut(opts.url, chunk, {
+                              headers: headers
+                            });
 
                           case 10:
                             res = _context2.sent;
-
                             checkResponseStatus(res, opts, [200, 201, 308]);
-                            (0, _debug2.default)('Chunk upload succeeded, adding checksum ' + checksum);
+                            (0, _debug["default"])("Chunk upload succeeded, adding checksum ".concat(checksum));
                             meta.addChecksum(index, checksum);
-
                             opts.onChunkUpload({
                               totalBytes: total,
                               uploadedBytes: end + 1,
@@ -235,22 +170,22 @@ var Upload = function () {
                             });
 
                           case 15:
-                          case 'end':
+                          case "end":
                             return _context2.stop();
                         }
                       }
-                    }, _callee2, _this);
+                    }, _callee2);
                   }));
 
                   return function uploadChunk(_x, _x2, _x3) {
-                    return _ref3.apply(this, arguments);
+                    return _ref2.apply(this, arguments);
                   };
                 }();
 
-                validateChunk = function () {
-                  var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(newChecksum, index) {
+                validateChunk = /*#__PURE__*/function () {
+                  var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(newChecksum, index) {
                     var originalChecksum, isChunkValid;
-                    return _regenerator2.default.wrap(function _callee3$(_context3) {
+                    return _regenerator["default"].wrap(function _callee3$(_context3) {
                       while (1) {
                         switch (_context3.prev = _context3.next) {
                           case 0:
@@ -263,58 +198,56 @@ var Upload = function () {
                             }
 
                             meta.reset();
-                            throw new _errors.DifferentChunkError(index, originalChecksum, newChecksum);
+                            throw new errors.DifferentChunkError(index, originalChecksum, newChecksum);
 
                           case 5:
-                          case 'end':
+                          case "end":
                             return _context3.stop();
                         }
                       }
-                    }, _callee3, _this);
+                    }, _callee3);
                   }));
 
                   return function validateChunk(_x4, _x5) {
-                    return _ref4.apply(this, arguments);
+                    return _ref3.apply(this, arguments);
                   };
                 }();
 
-                getRemoteResumeIndex = function () {
-                  var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
+                getRemoteResumeIndex = /*#__PURE__*/function () {
+                  var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4() {
                     var headers, res, header, range, bytesReceived;
-                    return _regenerator2.default.wrap(function _callee4$(_context4) {
+                    return _regenerator["default"].wrap(function _callee4$(_context4) {
                       while (1) {
                         switch (_context4.prev = _context4.next) {
                           case 0:
                             headers = {
-                              'Content-Range': 'bytes */' + opts.file.size
+                              'Content-Range': "bytes */".concat(opts.file.size)
                             };
-
-                            (0, _debug2.default)('Retrieving upload status from GCS');
+                            (0, _debug["default"])('Retrieving upload status from GCS');
                             _context4.next = 4;
-                            return safePut(opts.url, null, { headers: headers });
+                            return safePut(opts.url, null, {
+                              headers: headers
+                            });
 
                           case 4:
                             res = _context4.sent;
-
-
                             checkResponseStatus(res, opts, [308]);
-                            header = res.headers['range'];
-
-                            (0, _debug2.default)('Received upload status from GCS: ' + header);
+                            header = res.headers.range;
+                            (0, _debug["default"])("Received upload status from GCS: ".concat(header));
                             range = header.match(/(\d+?)-(\d+?)$/);
                             bytesReceived = parseInt(range[2]) + 1;
-                            return _context4.abrupt('return', Math.floor(bytesReceived / opts.chunkSize));
+                            return _context4.abrupt("return", Math.floor(bytesReceived / opts.chunkSize));
 
                           case 11:
-                          case 'end':
+                          case "end":
                             return _context4.stop();
                         }
                       }
-                    }, _callee4, _this);
+                    }, _callee4);
                   }));
 
                   return function getRemoteResumeIndex() {
-                    return _ref5.apply(this, arguments);
+                    return _ref4.apply(this, arguments);
                   };
                 }();
 
@@ -323,7 +256,7 @@ var Upload = function () {
                   break;
                 }
 
-                throw new _errors.UploadAlreadyFinishedError();
+                throw new errors.UploadAlreadyFinishedError();
 
               case 7:
                 if (!(meta.isResumable() && meta.getFileSize() === opts.file.size)) {
@@ -331,7 +264,7 @@ var Upload = function () {
                   break;
                 }
 
-                (0, _debug2.default)('Upload might be resumable');
+                (0, _debug["default"])('Upload might be resumable');
                 _context5.next = 11;
                 return resumeUpload();
 
@@ -340,17 +273,17 @@ var Upload = function () {
                 break;
 
               case 13:
-                (0, _debug2.default)('Upload not resumable, starting from scratch');
+                (0, _debug["default"])('Upload not resumable, starting from scratch');
                 _context5.next = 16;
                 return processor.run(uploadChunk);
 
               case 16:
-                (0, _debug2.default)('Upload complete, resetting meta');
+                (0, _debug["default"])('Upload complete, resetting meta');
                 meta.reset();
                 this.finished = true;
 
               case 19:
-              case 'end':
+              case "end":
                 return _context5.stop();
             }
           }
@@ -358,37 +291,36 @@ var Upload = function () {
       }));
 
       function start() {
-        return _ref.apply(this, arguments);
+        return _start.apply(this, arguments);
       }
 
       return start;
     }()
   }, {
-    key: 'pause',
+    key: "pause",
     value: function pause() {
       this.processor.pause();
-      (0, _debug2.default)('Upload paused');
+      (0, _debug["default"])('Upload paused');
     }
   }, {
-    key: 'unpause',
+    key: "unpause",
     value: function unpause() {
       this.processor.unpause();
-      (0, _debug2.default)('Upload unpaused');
+      (0, _debug["default"])('Upload unpaused');
     }
   }, {
-    key: 'cancel',
+    key: "cancel",
     value: function cancel() {
       this.processor.pause();
       this.meta.reset();
-      (0, _debug2.default)('Upload cancelled');
+      (0, _debug["default"])('Upload cancelled');
     }
   }]);
   return Upload;
 }();
 
-Upload.errors = errors;
-exports.default = Upload;
-
+exports["default"] = Upload;
+(0, _defineProperty2["default"])(Upload, "errors", errors);
 
 function checkResponseStatus(res, opts) {
   var allowed = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
@@ -400,22 +332,64 @@ function checkResponseStatus(res, opts) {
 
   switch (status) {
     case 308:
-      throw new _errors.UploadIncompleteError();
+      throw new errors.UploadIncompleteError();
 
     case 201:
     case 200:
-      throw new _errors.FileAlreadyUploadedError(opts.id, opts.url);
+      throw new errors.FileAlreadyUploadedError(opts.id, opts.url);
 
     case 404:
-      throw new _errors.UrlNotFoundError(opts.url);
+      throw new errors.UrlNotFoundError(opts.url);
 
     case 500:
     case 502:
     case 503:
     case 504:
-      throw new _errors.UploadFailedError(status);
+      throw new errors.UploadFailedError(status);
 
     default:
-      throw new _errors.UnknownResponseError(res);
+      throw new errors.UnknownResponseError(res);
   }
+}
+
+function safePut() {
+  return _safePut.apply(this, arguments);
+}
+
+function _safePut() {
+  _safePut = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6() {
+    var _args6 = arguments;
+    return _regenerator["default"].wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.prev = 0;
+            _context6.next = 3;
+            return _axios.put.apply(null, _args6);
+
+          case 3:
+            return _context6.abrupt("return", _context6.sent);
+
+          case 6:
+            _context6.prev = 6;
+            _context6.t0 = _context6["catch"](0);
+
+            if (!(_context6.t0 instanceof Error)) {
+              _context6.next = 12;
+              break;
+            }
+
+            throw _context6.t0;
+
+          case 12:
+            return _context6.abrupt("return", _context6.t0);
+
+          case 13:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6, null, [[0, 6]]);
+  }));
+  return _safePut.apply(this, arguments);
 }

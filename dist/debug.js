@@ -1,13 +1,14 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = void 0;
 
-var _debug = require('debug');
+var _debug = _interopRequireDefault(require("debug"));
 
-var _debug2 = _interopRequireDefault(_debug);
+var _default = (0, _debug["default"])('gcs-browser-upload');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = (0, _debug2.default)('gcs-browser-upload');
+exports["default"] = _default;

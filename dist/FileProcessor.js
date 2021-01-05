@@ -1,102 +1,68 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = void 0;
 
-var _regenerator = require('babel-runtime/regenerator');
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
-var _regenerator2 = _interopRequireDefault(_regenerator);
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
-var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+var _es6Promise = require("es6-promise");
 
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+var _sparkMd = _interopRequireDefault(require("spark-md5"));
 
-var _createClass2 = require('babel-runtime/helpers/createClass');
+var _debug = _interopRequireDefault(require("./debug"));
 
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var getData = function () {
-  var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(file, blob) {
-    return _regenerator2.default.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            return _context3.abrupt('return', new _es6Promise.Promise(function (resolve, reject) {
-              var reader = new window.FileReader();
-              reader.onload = function () {
-                return resolve(reader.result);
-              };
-              reader.onerror = reject;
-              reader.readAsArrayBuffer(blob);
-            }));
-
-          case 1:
-          case 'end':
-            return _context3.stop();
-        }
-      }
-    }, _callee3, this);
-  }));
-
-  return function getData(_x4, _x5) {
-    return _ref3.apply(this, arguments);
-  };
-}();
-
-var _es6Promise = require('es6-promise');
-
-var _sparkMd = require('spark-md5');
-
-var _sparkMd2 = _interopRequireDefault(_sparkMd);
-
-var _debug = require('./debug');
-
-var _debug2 = _interopRequireDefault(_debug);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var FileProcessor = function () {
+var FileProcessor = /*#__PURE__*/function () {
   function FileProcessor(file, chunkSize) {
-    (0, _classCallCheck3.default)(this, FileProcessor);
-
+    (0, _classCallCheck2["default"])(this, FileProcessor);
     this.paused = false;
     this.file = file;
     this.chunkSize = chunkSize;
     this.unpauseHandlers = [];
   }
 
-  (0, _createClass3.default)(FileProcessor, [{
-    key: 'run',
+  (0, _createClass2["default"])(FileProcessor, [{
+    key: "run",
     value: function () {
-      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(fn) {
+      var _run = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(fn) {
         var _this = this;
 
-        var startIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-        var endIndex = arguments[2];
-        var file, chunkSize, totalChunks, spark, processIndex, waitForUnpause;
-        return _regenerator2.default.wrap(function _callee2$(_context2) {
+        var startIndex,
+            endIndex,
+            file,
+            chunkSize,
+            totalChunks,
+            spark,
+            processIndex,
+            waitForUnpause,
+            _args2 = arguments;
+        return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                startIndex = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : 0;
+                endIndex = _args2.length > 2 ? _args2[2] : undefined;
                 file = this.file, chunkSize = this.chunkSize;
                 totalChunks = Math.ceil(file.size / chunkSize);
-                spark = new _sparkMd2.default.ArrayBuffer();
+                spark = new _sparkMd["default"].ArrayBuffer();
+                (0, _debug["default"])('Starting run on file:');
+                (0, _debug["default"])(" - Total chunks: ".concat(totalChunks));
+                (0, _debug["default"])(" - Start index: ".concat(startIndex));
+                (0, _debug["default"])(" - End index: ".concat(endIndex || totalChunks));
 
-
-                (0, _debug2.default)('Starting run on file:');
-                (0, _debug2.default)(' - Total chunks: ' + totalChunks);
-                (0, _debug2.default)(' - Start index: ' + startIndex);
-                (0, _debug2.default)(' - End index: ' + (endIndex || totalChunks));
-
-                processIndex = function () {
-                  var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(index) {
+                processIndex = /*#__PURE__*/function () {
+                  var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(index) {
                     var start, section, chunk, checksum, shouldContinue;
-                    return _regenerator2.default.wrap(function _callee$(_context) {
+                    return _regenerator["default"].wrap(function _callee$(_context) {
                       while (1) {
                         switch (_context.prev = _context.next) {
                           case 0:
@@ -105,8 +71,8 @@ var FileProcessor = function () {
                               break;
                             }
 
-                            (0, _debug2.default)('File process complete');
-                            return _context.abrupt('return');
+                            (0, _debug["default"])('File process complete');
+                            return _context.abrupt("return");
 
                           case 3:
                             if (!_this.paused) {
@@ -141,15 +107,15 @@ var FileProcessor = function () {
                             return processIndex(index + 1);
 
                           case 18:
-                          case 'end':
+                          case "end":
                             return _context.stop();
                         }
                       }
-                    }, _callee, _this);
+                    }, _callee);
                   }));
 
-                  return function processIndex(_x3) {
-                    return _ref2.apply(this, arguments);
+                  return function processIndex(_x2) {
+                    return _ref.apply(this, arguments);
                   };
                 }();
 
@@ -159,11 +125,11 @@ var FileProcessor = function () {
                   });
                 };
 
-                _context2.next = 11;
+                _context2.next = 13;
                 return processIndex(startIndex);
 
-              case 11:
-              case 'end':
+              case 13:
+              case "end":
                 return _context2.stop();
             }
           }
@@ -171,18 +137,18 @@ var FileProcessor = function () {
       }));
 
       function run(_x) {
-        return _ref.apply(this, arguments);
+        return _run.apply(this, arguments);
       }
 
       return run;
     }()
   }, {
-    key: 'pause',
+    key: "pause",
     value: function pause() {
       this.paused = true;
     }
   }, {
-    key: 'unpause',
+    key: "unpause",
     value: function unpause() {
       this.paused = false;
       this.unpauseHandlers.forEach(function (fn) {
@@ -202,4 +168,36 @@ function getChecksum(spark, chunk) {
   return checksum;
 }
 
-exports.default = FileProcessor;
+function getData(_x3, _x4) {
+  return _getData.apply(this, arguments);
+}
+
+function _getData() {
+  _getData = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(file, blob) {
+    return _regenerator["default"].wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            return _context3.abrupt("return", new _es6Promise.Promise(function (resolve, reject) {
+              var reader = new window.FileReader();
+
+              reader.onload = function () {
+                return resolve(reader.result);
+              };
+
+              reader.onerror = reject;
+              reader.readAsArrayBuffer(blob);
+            }));
+
+          case 1:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+  return _getData.apply(this, arguments);
+}
+
+var _default = FileProcessor;
+exports["default"] = _default;
