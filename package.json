@@ -75,5 +75,12 @@
       "arrow-parens": 0,
       "babel/arrow-parens": 1
     }
+  },
+  "mocha": {
+    "require": [
+      "test/setup.js",
+      "@babel/register"
+    ],
+    "timeout": 50000
   }
 }
