@@ -55,6 +55,9 @@
     "README.md"
   ],
   "standard": {
+    "ignore": [
+      "dist/**/*.js"
+    ],
     "parser": "babel-eslint",
     "global": [
       "describe",
