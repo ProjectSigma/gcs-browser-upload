@@ -32,7 +32,7 @@ export default class FileMeta {
   }
 
   isResumable () {
-    let meta = this.getMeta()
+    const meta = this.getMeta()
     return meta.started && this.chunkSize === meta.chunkSize
   }
 
@@ -45,7 +45,7 @@ export default class FileMeta {
   }
 
   addChecksum (index, checksum) {
-    let meta = this.getMeta()
+    const meta = this.getMeta()
     meta.checksums[index] = checksum
     meta.started = true
     this.setMeta(meta)

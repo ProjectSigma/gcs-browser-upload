@@ -21,7 +21,7 @@ export default class Upload {
   static errors = errors;
 
   constructor (args, allowSmallChunks) {
-    var opts = {
+    const opts = {
       chunkSize: MIN_CHUNK_SIZE,
       storage: window.localStorage,
       contentType: 'text/plain',
@@ -124,7 +124,7 @@ export default class Upload {
       const res = await safePut(opts.url, null, { headers })
 
       checkResponseStatus(res, opts, [308])
-      const header = res.headers['range']
+      const header = res.headers.range
       debug(`Received upload status from GCS: ${header}`)
       const range = header.match(/(\d+?)-(\d+?)$/)
       const bytesReceived = parseInt(range[2]) + 1

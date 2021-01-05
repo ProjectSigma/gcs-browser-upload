@@ -13,7 +13,7 @@ class FileProcessor {
   async run (fn, startIndex = 0, endIndex) {
     const { file, chunkSize } = this
     const totalChunks = Math.ceil(file.size / chunkSize)
-    let spark = new SparkMD5.ArrayBuffer()
+    const spark = new SparkMD5.ArrayBuffer()
 
     debug('Starting run on file:')
     debug(` - Total chunks: ${totalChunks}`)
@@ -70,7 +70,7 @@ function getChecksum (spark, chunk) {
 
 async function getData (file, blob) {
   return new Promise((resolve, reject) => {
-    let reader = new window.FileReader()
+    const reader = new window.FileReader()
     reader.onload = () => resolve(reader.result)
     reader.onerror = reject
     reader.readAsArrayBuffer(blob)

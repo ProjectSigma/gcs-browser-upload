@@ -1,7 +1,7 @@
 require('babel-core/register')
 require('babel-polyfill')
 
-var chai = require('chai')
+const chai = require('chai')
 
 global.window = {
   FileReader: require('filereader'),
