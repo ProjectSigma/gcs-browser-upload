@@ -56,8 +56,9 @@ router.put('/', (req, res) => {
     file.index = req.range.end
   }
   res.set('range', `bytes=0-${file.index}`)
-  if (file.index + 1 === file.total) {
-    res.send(200).send('OK')
+
+  if (Number(file.index) + 1 === Number(file.total)) {
+    res.status(200).send('OK')
   } else {
     res.status(308).send('Resume Incomplete')
   }
