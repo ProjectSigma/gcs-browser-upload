@@ -62,7 +62,7 @@ unpause.addEventListener('click', () => {
 
 ```js
 {
-  id: null, // required - a unique ID for the upload 
+  id: null, // required - a unique ID for the upload
   url: null, // required - GCS resumable URL
   file: null, // required - instance of File
   chunkSize: 262144, // optional - chunk size must be a multiple of 262144
