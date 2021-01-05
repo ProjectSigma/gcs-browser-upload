@@ -94,7 +94,7 @@ export default class Upload {
       debug(` - Start: ${start}`)
       debug(` - End: ${end}`)
 
-      const res = await safePut(opts.url, chunk, { headers })
+      const res = await safePut(opts.url, chunk, { headers, validateStatus: _ => true })
       checkResponseStatus(res, opts, [200, 201, 308])
       debug(`Chunk upload succeeded, adding checksum ${checksum}`)
       meta.addChecksum(index, checksum)
@@ -121,8 +121,8 @@ export default class Upload {
         'Content-Range': `bytes */${opts.file.size}`
       }
       debug('Retrieving upload status from GCS')
-      const res = await safePut(opts.url, null, { headers })
 
+      const res = await safePut(opts.url, null, { headers, validateStatus: _ => true })
       checkResponseStatus(res, opts, [308])
       const header = res.headers.range
       debug(`Received upload status from GCS: ${header}`)

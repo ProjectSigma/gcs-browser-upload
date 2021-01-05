@@ -154,7 +154,10 @@ var Upload = /*#__PURE__*/function () {
                             (0, _debug["default"])(" - End: ".concat(end));
                             _context2.next = 10;
                             return safePut(opts.url, chunk, {
-                              headers: headers
+                              headers: headers,
+                              validateStatus: function validateStatus(_) {
+                                return true;
+                              }
                             });
 
                           case 10:
@@ -226,7 +229,10 @@ var Upload = /*#__PURE__*/function () {
                             (0, _debug["default"])('Retrieving upload status from GCS');
                             _context4.next = 4;
                             return safePut(opts.url, null, {
-                              headers: headers
+                              headers: headers,
+                              validateStatus: function validateStatus(_) {
+                                return true;
+                              }
                             });
 
                           case 4:
