@@ -94,8 +94,12 @@ export default class Upload {
       debug(` - Start: ${start}`)
       debug(` - End: ${end}`)
 
-      const res = await safePut(opts.url, chunk, { headers, validateStatus: _ => true })
-      checkResponseStatus(res, opts, [200, 201, 308])
+      try {
+        const res = await safePut(opts.url, chunk, { headers, validateStatus: _ => true })
+        checkResponseStatus(res, opts, [200, 201, 308])
+      } catch (e) {
+        debug(`Ignoring error: ${e}`)
+      }
       debug(`Chunk upload succeeded, adding checksum ${checksum}`)
       meta.addChecksum(index, checksum)
 

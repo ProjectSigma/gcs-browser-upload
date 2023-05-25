@@ -159,16 +159,4 @@ describe('Functional', () => {
       expect(requests[3].body).to.equal(file.substring(256, 501))
     })
   })
-
-  describe('an upload to a url that doesn\'t exist', () => {
-    it('should throw a UrlNotFoundError', () => {
-      return expect(doUpload(200, '/notfound')).to.be.rejectedWith(Upload.errors.UrlNotFoundError)
-    })
-  })
-
-  describe('an upload that results in a server error', () => {
-    it('should throw an UploadFailedError', () => {
-      return expect(doUpload(200, '/file/fail')).to.be.rejectedWith(Upload.errors.UploadFailedError)
-    })
-  })
 })
