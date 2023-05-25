@@ -152,7 +152,8 @@ var Upload = /*#__PURE__*/function () {
                             (0, _debug["default"])(" - Chunk length: ".concat(chunk.byteLength));
                             (0, _debug["default"])(" - Start: ".concat(start));
                             (0, _debug["default"])(" - End: ".concat(end));
-                            _context2.next = 10;
+                            _context2.prev = 8;
+                            _context2.next = 11;
                             return safePut(opts.url, chunk, {
                               headers: headers,
                               validateStatus: function validateStatus(_) {
@@ -160,9 +161,18 @@ var Upload = /*#__PURE__*/function () {
                               }
                             });
 
-                          case 10:
+                          case 11:
                             res = _context2.sent;
                             checkResponseStatus(res, opts, [200, 201, 308]);
+                            _context2.next = 18;
+                            break;
+
+                          case 15:
+                            _context2.prev = 15;
+                            _context2.t0 = _context2["catch"](8);
+                            (0, _debug["default"])("Ignoring error: ".concat(_context2.t0));
+
+                          case 18:
                             (0, _debug["default"])("Chunk upload succeeded, adding checksum ".concat(checksum));
                             meta.addChecksum(index, checksum);
                             opts.onChunkUpload({
@@ -172,12 +182,12 @@ var Upload = /*#__PURE__*/function () {
                               chunkLength: chunk.byteLength
                             });
 
-                          case 15:
+                          case 21:
                           case "end":
                             return _context2.stop();
                         }
                       }
-                    }, _callee2);
+                    }, _callee2, null, [[8, 15]]);
                   }));
 
                   return function uploadChunk(_x, _x2, _x3) {
